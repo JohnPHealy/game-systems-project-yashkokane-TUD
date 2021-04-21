@@ -20,7 +20,8 @@ public class PlayerMovement : MonoBehaviour
     public float dashSpeed;
     private float dashTime;
     public float startDashTime;
-    private int direction;
+    private float previousDirection = 1;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -50,12 +51,16 @@ public class PlayerMovement : MonoBehaviour
 
             
         }
+
+        if (myRB.velocity.x != 0)
+        {
+            previousDirection = myRB.velocity.x;
+        }
     }
     
     public void Move(InputAction.CallbackContext context)
     {
         moveDir = context.ReadValue<float>();
-        
     }
     public void Jump(InputAction.CallbackContext context)
     {
@@ -76,53 +81,43 @@ public class PlayerMovement : MonoBehaviour
     {
         if (context.started)
         {
-            if(canDash && !Dashing)
+            if (canDash && !Dashing)
+            {
+                if (dashTime <= 0)
                 {
-                    if(direction == 0)
+                    dashTime = startDashTime;
+                    myRB.velocity = Vector2.zero;
+                    Dashing = false;
+
+                }
+                else
+                {
+                    Dashing = false;
+                    dashTime -= Time.deltaTime;
+                    if (myRB.velocity.x < 0)
                     {
-                        if(moveDir < 0)
-                        {
-                            direction = 1;
-                        }
-                        else if (moveDir > 0)
-                        {
-                            direction = 2;
-                        }
+                        myRB.velocity = Vector2.left * dashSpeed;
+                        Dashing = true;
+                        Invoke("Dashtimer", 1.0f);
+                    }
+                    else if (myRB.velocity.x > 0)
+                    {
+                        myRB.velocity = Vector2.right * dashSpeed;
+                        Dashing = true;
+                        Invoke("Dashtimer", 1.0f);
                     }
                     else
                     {
-                        if(dashTime <= 0)
-                        {
-                            direction = 0;
-                            dashTime = startDashTime;
-                            myRB.velocity = Vector2.zero;
-                            Dashing = false;
-            
-                        }
-                        else
-                        {
-                            Dashing = false;
-                            dashTime -= Time.deltaTime;
-                            if(direction == 1)
-                            {
-                                myRB.velocity = Vector2.left * dashSpeed;
-                                Dashing = true;
-                                /*Debug.Log("Dashing left");*/
-                                direction = 0;
-                                Invoke("Dashtimer", 1.0f);
-                            }else if (direction == 2)
-                            {
-                                myRB.velocity = Vector2.right * dashSpeed;
-                                Dashing = true;
-                                /*Debug.Log("Dashing right");*/
-                                direction = 0;
-                                Invoke("Dashtimer", 1.0f);
-                            }
-                        }
+                        if(previousDirection < 0) myRB.velocity = Vector2.left * dashSpeed;
+                        if(previousDirection > 0) myRB.velocity = Vector2.right * dashSpeed;
+                       
+                        Dashing = true;
+                        Invoke("Dashtimer", 1.0f);
                     }
                 }
+            }
+
         }
-        /*Debug.Log("is dashing");*/
     
         
     }
