@@ -16,6 +16,11 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D myRB;
     private bool canJump;
     
+    //Health controls
+    public int maxHealth = 100;
+    public int currentHealth = 10;
+    public HealthBar healthbar;
+    
     //Dash Controls
     public float dashSpeed;
     private float dashTime;
@@ -27,7 +32,9 @@ public class PlayerMovement : MonoBehaviour
     {
         myRB = GetComponent<Rigidbody2D>();
         dashTime = startDashTime;
-       
+        healthbar.SetMaxHealth(maxHealth);
+        healthbar.SetHealth(currentHealth);
+
     }
 
 
