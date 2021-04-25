@@ -12,9 +12,13 @@ public class Enemy : MonoBehaviour
     public Transform[] points;
     public int pointSelect;
     public int health = 3;
+    
+    private SpriteRenderer mySR;
+    
     // Start is called before the first frame update
     void Start()
     {
+        mySR = GetComponentInChildren<SpriteRenderer>();
         currentPosition = points[pointSelect];
     }
 
@@ -27,10 +31,13 @@ public class Enemy : MonoBehaviour
         if (_enemy.transform.position == currentPosition.position)
         {
             pointSelect++;
+            mySR.flipX = false;
+            
 
             if (pointSelect == points.Length)
             {
                 pointSelect = 0;
+                mySR.flipX = true;
             }
 
             currentPosition = points[pointSelect];

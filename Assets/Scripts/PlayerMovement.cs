@@ -14,12 +14,16 @@ public class PlayerMovement : MonoBehaviour
     
     private float moveDir;
     private Rigidbody2D myRB;
+    private SpriteRenderer mySR;
+    public float V_speed;
     private bool canJump;
+    public Animator anim;
     
     //Health controls
     public int maxHealth = 100;
-    public int currentHealth = 10;
+    public int currentHealth;
     public HealthBar healthbar;
+    
     
     //Dash Controls
     public float dashSpeed;
@@ -31,16 +35,26 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         myRB = GetComponent<Rigidbody2D>();
-        dashTime = startDashTime;
-        healthbar.SetMaxHealth(maxHealth);
-        healthbar.SetHealth(currentHealth);
+        mySR = GetComponentInChildren<SpriteRenderer>();
+        dashTime = startDashTime;   //Dash timer
+        healthbar.SetMaxHealth(maxHealth); //sets the max possible health in the HUD
+        healthbar.SetHealth(10); //start the game with low health
 
     }
 
 
     private void FixedUpdate()
     {
+        
         var moveAxis = Vector2.right * moveDir;
+        if (moveDir > 0)
+        {
+            mySR.flipX = false;
+        }
+        if (moveDir < 0)
+        {
+            mySR.flipX = true;
+        }
         
         if (Mathf.Abs(myRB.velocity.x) < maxSpeed)
         {
@@ -50,12 +64,13 @@ public class PlayerMovement : MonoBehaviour
         if (groundCheck.IsTouchingLayers(groundLayers))
         {
             canJump = true;
+            anim.SetBool("isGrounded", true);
 
         }
         else
         {
             canJump = false;
-
+            anim.SetBool("isGrounded", false);
             
         }
 
@@ -63,17 +78,25 @@ public class PlayerMovement : MonoBehaviour
         {
             previousDirection = myRB.velocity.x;
         }
+        
+        
     }
     
     public void Move(InputAction.CallbackContext context)
     {
         moveDir = context.ReadValue<float>();
+        anim.SetFloat("isMoving", moveDir);
+
     }
     public void Jump(InputAction.CallbackContext context)
     {
         if (canJump && context.started)
         {
+         
             myRB.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
+            
+            
+            
             
             canJump = false;
         }
@@ -81,6 +104,9 @@ public class PlayerMovement : MonoBehaviour
         if (context.canceled && myRB.velocity.y > 0)
         {
             myRB.velocity = new Vector2(myRB.velocity.x, 0f);
+            
+            
+            
         }
     }
 
@@ -105,12 +131,14 @@ public class PlayerMovement : MonoBehaviour
                     {
                         myRB.velocity = Vector2.left * dashSpeed;
                         Dashing = true;
+                        anim.SetBool("isDashing",true);
                         Invoke("Dashtimer", 1.0f);
                     }
                     else if (myRB.velocity.x > 0)
                     {
                         myRB.velocity = Vector2.right * dashSpeed;
                         Dashing = true;
+                        anim.SetBool("isDashing",true);
                         Invoke("Dashtimer", 1.0f);
                     }
                     else
@@ -123,14 +151,12 @@ public class PlayerMovement : MonoBehaviour
                     }
                 }
             }
-
         }
-    
-        
     }
    void Dashtimer()
    {
        Dashing = false;
+       anim.SetBool("isDashing",false);
    }
 
 }
