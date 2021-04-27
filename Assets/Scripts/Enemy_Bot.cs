@@ -13,9 +13,12 @@ public class Enemy_Bot : MonoBehaviour
     public Transform[] points;
 
     public int pointSelect;
+    
+    private SpriteRenderer mySR;
     // Start is called before the first frame update
     void Start()
     {
+        mySR = GetComponentInChildren<SpriteRenderer>();
         currentPosition = points[pointSelect];
     }
 
@@ -28,10 +31,12 @@ public class Enemy_Bot : MonoBehaviour
         if (_enemyBot.transform.position == currentPosition.position)
         {
             pointSelect++;
+            mySR.flipX = true;
 
             if (pointSelect == points.Length)
             {
                 pointSelect = 0;
+                mySR.flipX = false;
             }
 
             currentPosition = points[pointSelect];

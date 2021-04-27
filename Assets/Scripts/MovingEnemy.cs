@@ -31,30 +31,20 @@ public class MovingEnemy : MonoBehaviour
         if (_enemy.transform.position == currentPosition.position)
         {
             pointSelect++;
-            mySR.flipX = false;
+            
+            mySR.flipX = true;
 
             if (pointSelect == points.Length)
             {
                 pointSelect = 0;
-                mySR.flipX = true;
+                
+                mySR.flipX = false;
             }
 
             currentPosition = points[pointSelect];
         }
     }
     
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            health = health - 1;
-            if (health == 0)
-            {
-                Destroy(gameObject);
-            }
-            /*Debug.Log(("Dash"));*/
-        }
-    }
     private void OnCollisionEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player" && Dash.Dashing == true)

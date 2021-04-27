@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     
     //Health controls
     public int maxHealth = 100;
-    public int currentHealth;
+    public int currentHealth ;
     public HealthBar healthbar;
     
     
@@ -34,11 +34,12 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentHealth = 10;
         myRB = GetComponent<Rigidbody2D>();
         mySR = GetComponentInChildren<SpriteRenderer>();
         dashTime = startDashTime;   //Dash timer
-        healthbar.SetMaxHealth(maxHealth); //sets the max possible health in the HUD
-        healthbar.SetHealth(10); //start the game with low health
+        healthbar.SetMaxHealth(); //sets the max possible health in the HUD
+        healthbar.SetHealth(currentHealth); //start the game with low health
 
     }
 
@@ -78,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
         {
             previousDirection = myRB.velocity.x;
         }
+        healthbar.SetHealth(currentHealth);
         
         
     }
@@ -159,4 +161,11 @@ public class PlayerMovement : MonoBehaviour
        anim.SetBool("isDashing",false);
    }
 
+   private void OnCollisionEnter2D(Collision2D other)
+   {
+       if (other.gameObject.tag == "Enemy")
+       {
+           currentHealth = currentHealth - 1;
+       }
+   }
 }

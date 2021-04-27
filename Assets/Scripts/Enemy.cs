@@ -31,13 +31,15 @@ public class Enemy : MonoBehaviour
         if (_enemy.transform.position == currentPosition.position)
         {
             pointSelect++;
-            mySR.flipX = false;
+            
+            mySR.flipX = true;
+            
             
 
             if (pointSelect == points.Length)
             {
                 pointSelect = 0;
-                mySR.flipX = true;
+                mySR.flipX = false;
             }
 
             currentPosition = points[pointSelect];
