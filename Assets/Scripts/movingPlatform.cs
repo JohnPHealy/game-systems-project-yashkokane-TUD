@@ -13,6 +13,8 @@ public class movingPlatform : MonoBehaviour
 
     public Transform[] points;
 
+    private Transform childTranform;
+
     public int pointSelect;
     // Start is called before the first frame update
     void Start()
@@ -36,6 +38,23 @@ public class movingPlatform : MonoBehaviour
             }
 
             currentPosition = points[pointSelect];
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            other.gameObject.layer = 10;
+            other.transform.SetParent(childTranform);
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            other.transform.SetParent(null);
         }
     }
 }
