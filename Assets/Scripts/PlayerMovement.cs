@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public bool canDash;
     [SerializeField] public bool Dashing = false;
     
-    private float moveDir;
+    public  static float moveDir;
     private Rigidbody2D myRB;
     private SpriteRenderer mySR;
     public float V_speed;
@@ -23,6 +23,10 @@ public class PlayerMovement : MonoBehaviour
     public int maxHealth = 100;
     public int currentHealth ;
     public HealthBar healthbar;
+    
+    //player evolution
+    public bool p_level1;
+    public bool p_level2;
     
     
     //Dash Controls
@@ -40,23 +44,16 @@ public class PlayerMovement : MonoBehaviour
         dashTime = startDashTime;   //Dash timer
         healthbar.SetMaxHealth(); //sets the max possible health in the HUD
         healthbar.SetHealth(currentHealth); //start the game with low health
+        p_level1 = true;
 
     }
 
 
     private void FixedUpdate()
     {
-        
+       
         var moveAxis = Vector2.right * moveDir;
-        if (moveDir > 0)
-        {
-            mySR.flipX = false;
-        }
-        if (moveDir < 0)
-        {
-            mySR.flipX = true;
-        }
-        
+       
         if (Mathf.Abs(myRB.velocity.x) < maxSpeed)
         {
             myRB.AddForce(moveAxis * moveForce, ForceMode2D.Force);
@@ -65,14 +62,10 @@ public class PlayerMovement : MonoBehaviour
         if (groundCheck.IsTouchingLayers(groundLayers))
         {
             canJump = true;
-            anim.SetBool("isGrounded", true);
-
         }
         else
         {
             canJump = false;
-            anim.SetBool("isGrounded", false);
-            
         }
 
         if (myRB.velocity.x != 0)
@@ -80,34 +73,71 @@ public class PlayerMovement : MonoBehaviour
             previousDirection = myRB.velocity.x;
         }
         healthbar.SetHealth(currentHealth);
-        
+        if (currentHealth == 30)
+        {
+            p_level1 = false;
+            anim.SetBool("P_level1" , false);
+            p_level2 = true;
+            anim.SetBool("P_level2", true);
+        }
         
     }
     
     public void Move(InputAction.CallbackContext context)
     {
         moveDir = context.ReadValue<float>();
-        anim.SetFloat("isMoving", moveDir);
-
+        if (p_level1 == true )
+        {
+            if (moveDir >0)
+            {
+                mySR.flipX = false;
+                anim.Play("Hero1_run");
+            }
+            else if (moveDir < 0)
+            {
+                mySR.flipX = true;
+                anim.Play("Hero1_run");
+            }
+            else
+            {
+                anim.Play("Hero1_idle");
+            }
+        }
+        else if(p_level2 == true)
+        {
+            if (moveDir >0)
+            {
+                mySR.flipX = false;
+                anim.Play("Hero2_run");
+            }
+            else if (moveDir < 0)
+            {
+                mySR.flipX = true;
+                anim.Play("Hero2_run");
+            }
+            else
+            {
+                anim.Play("Hero2_Idle");
+            }
+        }
     }
+    
     public void Jump(InputAction.CallbackContext context)
     {
         if (canJump && context.started)
         {
-         
             myRB.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
-            
-            
-            
-            
             canJump = false;
+            anim.Play("Hero1_jump");
+        }
+        else
+        {
+            anim.Play("Hero1_idle");
         }
 
         if (context.canceled && myRB.velocity.y > 0)
         {
             myRB.velocity = new Vector2(myRB.velocity.x, 0f);
-            
-            
             
         }
     }
@@ -123,7 +153,6 @@ public class PlayerMovement : MonoBehaviour
                     dashTime = startDashTime;
                     myRB.velocity = Vector2.zero;
                     Dashing = false;
-
                 }
                 else
                 {
@@ -133,15 +162,32 @@ public class PlayerMovement : MonoBehaviour
                     {
                         myRB.velocity = Vector2.left * dashSpeed;
                         Dashing = true;
-                        anim.SetBool("isDashing",true);
-                        Invoke("Dashtimer", 1.0f);
+                        if (p_level1 == true)
+                        {
+                            anim.Play("Hero1_Dash");
+                            Invoke("Dashtimer", 1.0f); 
+                        }
+                        else if (p_level2 == true)
+                        {
+                            anim.Play("Hero2_Dash");
+                            Invoke("Dashtimer", 1.0f); 
+                        }
+                        
                     }
                     else if (myRB.velocity.x > 0)
                     {
                         myRB.velocity = Vector2.right * dashSpeed;
                         Dashing = true;
-                        anim.SetBool("isDashing",true);
-                        Invoke("Dashtimer", 1.0f);
+                        if (p_level1 == true)
+                        {
+                            anim.Play("Hero1_Dash");
+                            Invoke("Dashtimer", 1.0f); 
+                        }
+                        else if (p_level2 == true)
+                        {
+                            anim.Play("Hero2_Dash");
+                            Invoke("Dashtimer", 1.0f); 
+                        }
                     }
                     else
                     {
@@ -168,4 +214,5 @@ public class PlayerMovement : MonoBehaviour
            currentHealth = currentHealth - 1;
        }
    }
+  
 }

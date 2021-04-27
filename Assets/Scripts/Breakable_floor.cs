@@ -7,7 +7,9 @@ public class Breakable_floor : MonoBehaviour
 {
     public PlayerMovement Dash;
 
-    private ParticleSystem particles;
+    public ParticleSystem particles;
+
+    public ParticleSystem smoke;
 
     private SpriteRenderer mySR;
 
@@ -32,17 +34,20 @@ public class Breakable_floor : MonoBehaviour
         {
             if (Dash.Dashing == true)
             {
+                smoke.Play();
                 StartCoroutine(Break());
             }
         }
     }
     IEnumerator Break()
     {
-        particles.Play();
-
+        /*yield return new WaitForSeconds(smoke.main.startLifetime.constantMax);
+        particles.Play();*/
+        
+        yield return new WaitForSeconds(smoke.main.startLifetime.constantMax);
         mySR.enabled = false;
         bc.enabled = false;
-        yield return new WaitForSeconds(particles.main.startLifetime.constantMax);
+        
         Destroy(gameObject);
     }
 }
