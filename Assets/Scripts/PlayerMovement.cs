@@ -8,9 +8,11 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float moveForce, maxSpeed, jumpForce;
     [SerializeField] private Collider2D groundCheck;
+    [SerializeField] private Collider2D groundCheck_hero2;
     [SerializeField] private LayerMask groundLayers;
     [SerializeField] public bool canDash;
     [SerializeField] public bool Dashing = false;
+    
     
     public  static float moveDir;
     private Rigidbody2D myRB;
@@ -19,15 +21,22 @@ public class PlayerMovement : MonoBehaviour
     private bool canJump;
     public Animator anim;
     
+    /*public Sprite[] CookieLife;*/
+    
+    public CircleCollider2D myBox;
+    public GameObject hero1;
+    public GameObject hero2;
+    
     //Health controls
-    public int maxHealth = 100;
-    public int currentHealth ;
+    public static int currentHealth = 20 ;
     public HealthBar healthbar;
     
     //player evolution
-    public bool p_level1;
-    public bool p_level2;
-    
+    public  static bool p_level1;
+    public static bool p_level2;
+
+    /*public Sprite Hero2_sprite;
+    public Sprite hero1_sprite;*/
     
     //Dash Controls
     public float dashSpeed;
@@ -38,8 +47,8 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = 10;
         myRB = GetComponent<Rigidbody2D>();
+        myBox = GetComponent<CircleCollider2D>();
         mySR = GetComponentInChildren<SpriteRenderer>();
         dashTime = startDashTime;   //Dash timer
         healthbar.SetMaxHealth(); //sets the max possible health in the HUD
@@ -51,15 +60,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-       
+        evolutionCheck();
         var moveAxis = Vector2.right * moveDir;
-       
         if (Mathf.Abs(myRB.velocity.x) < maxSpeed)
         {
             myRB.AddForce(moveAxis * moveForce, ForceMode2D.Force);
-
         }
-        if (groundCheck.IsTouchingLayers(groundLayers))
+        if (groundCheck.IsTouchingLayers(groundLayers) )
         {
             canJump = true;
         }
@@ -67,26 +74,36 @@ public class PlayerMovement : MonoBehaviour
         {
             canJump = false;
         }
-
+        
+        /*if (groundCheck_hero2.IsTouchingLayers(groundLayers))
+        {
+            canJump = true;
+        }
+        else
+        {
+            canJump = false;
+        }
+        
         if (myRB.velocity.x != 0)
         {
             previousDirection = myRB.velocity.x;
-        }
+        }*/
         healthbar.SetHealth(currentHealth);
-        if (currentHealth == 30)
-        {
-            p_level1 = false;
-            anim.SetBool("P_level1" , false);
-            p_level2 = true;
-            anim.SetBool("P_level2", true);
-        }
-        
+    }
+
+    public void updateHealth()
+    {
+        currentHealth = currentHealth + 2;
+    }
+    public void updateHealth1()
+    {
+        currentHealth = currentHealth - 2;
     }
     
     public void Move(InputAction.CallbackContext context)
     {
         moveDir = context.ReadValue<float>();
-        if (p_level1 == true )
+        if (p_level1)
         {
             if (moveDir >0)
             {
@@ -103,7 +120,7 @@ public class PlayerMovement : MonoBehaviour
                 anim.Play("Hero1_idle");
             }
         }
-        else if(p_level2 == true)
+        else if(p_level2)
         {
             if (moveDir >0)
             {
@@ -124,21 +141,43 @@ public class PlayerMovement : MonoBehaviour
     
     public void Jump(InputAction.CallbackContext context)
     {
-        if (canJump && context.started)
+        if (p_level1)
         {
-            myRB.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
-            canJump = false;
-            anim.Play("Hero1_jump");
-        }
-        else
-        {
-            anim.Play("Hero1_idle");
-        }
+            if (canJump && context.started)
+            {
+                myRB.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
+                canJump = false;
+                anim.Play("Hero1_jump");
+            }
+            else
+            {
+                anim.Play("Hero1_idle");
+            }
 
-        if (context.canceled && myRB.velocity.y > 0)
-        {
-            myRB.velocity = new Vector2(myRB.velocity.x, 0f);
+            if (context.canceled && myRB.velocity.y > 0)
+            {
+                myRB.velocity = new Vector2(myRB.velocity.x, 0f);
             
+            }
+        }
+        else if (p_level2)
+        {
+            if (canJump && context.started)
+            {
+                myRB.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
+                canJump = false;
+                anim.Play("Hero2_jump");
+            }
+            else
+            {
+                anim.Play("Hero2_Idle");
+            }
+
+            if (context.canceled && myRB.velocity.y > 0)
+            {
+                myRB.velocity = new Vector2(myRB.velocity.x, 0f);
+            
+            }
         }
     }
 
@@ -214,5 +253,27 @@ public class PlayerMovement : MonoBehaviour
            currentHealth = currentHealth - 1;
        }
    }
-  
+
+   public void evolutionCheck()
+   {
+       if (currentHealth > 45)
+       {
+           p_level1 = false;
+           p_level2 = true;
+           myBox.radius = 1.1f;
+        
+           hero1.SetActive(false);
+           hero2.SetActive(true);
+
+       }
+       else if (currentHealth < 25)
+       {
+           p_level1 = true;
+           p_level2 = false;
+           myBox.radius = 0.5f;
+           
+           hero2.SetActive(false);
+           hero1.SetActive(true);
+       }
+   }
 }

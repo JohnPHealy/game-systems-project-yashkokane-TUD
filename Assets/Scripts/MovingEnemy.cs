@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,16 +6,24 @@ using UnityEngine;
 public class MovingEnemy : MonoBehaviour
 {
     public GameObject _enemy;
-    public float moveSpeed;
+    
+    //enemy stats
+    private float moveSpeed = 3;
+    public  int health = 4;
+    
+    //enemy patrolling control variables
     public Transform currentPosition;
     public Transform[] points;
     public int pointSelect;
-    public int health = 3;
     
-    private SpriteRenderer mySR;
+    //invoke to check Player dash ability access
+    public PlayerMovement Dash; 
+    
+    
+    private SpriteRenderer mySR;    //Enemy sprite access
     //player movement script Dash ability call
     
-    public PlayerMovement Dash;
+    public GameObject roof ;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +34,7 @@ public class MovingEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //patrolling enemy code that checks the patrol points assigned to it and flips sprite as per direction
         _enemy.transform.position = Vector3.MoveTowards(_enemy.transform.position, currentPosition.position,
             moveSpeed * Time.deltaTime);
 
@@ -44,17 +54,22 @@ public class MovingEnemy : MonoBehaviour
             currentPosition = points[pointSelect];
         }
     }
-    
-    private void OnCollisionEnter2D(Collider2D other)
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player" && Dash.Dashing == true)
+        if (other.gameObject.tag == "Player" || Dash.Dashing == true)
         {
+            Debug.Log(health);
             health = health - 1;
+    
             if (health == 0)
             {
-                Destroy(gameObject);
+                Destroy(gameObject); //destroy enemy object
+                Destroy(roof);//destroy the roof object in the map
             }
             /*Debug.Log(("Dash"));*/
         }
     }
+
+ 
 }
