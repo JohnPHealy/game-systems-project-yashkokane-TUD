@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float moveForce, maxSpeed, jumpForce;
     [SerializeField] private Collider2D groundCheck;
-    /*[SerializeField] private Collider2D groundCheck_hero2;*/
+    [SerializeField] private Collider2D groundCheck_hero2;
     [SerializeField] private LayerMask groundLayers;
     [SerializeField] public bool canDash;
     [SerializeField] public bool Dashing = false;
@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject hero2;*/
     
     //Health controls
-    public static int currentHealth = 60 ;
+    public static int currentHealth = 20 ;
     public HealthBar healthbar;
     
     //player evolution
@@ -73,8 +73,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (p_level2)
         {
-            canJump = groundCheck.IsTouchingLayers(groundLayers);
-            /*Debug.Log("hero 2 ground check"+ canJump);*/
+            canJump = groundCheck_hero2.IsTouchingLayers(groundLayers);
         }
         if (myRB.velocity.x != 0)
         {
@@ -285,7 +284,9 @@ public class PlayerMovement : MonoBehaviour
            p_level2 = true;
            myBox.radius = 1.1f;
            myBox2.radius = 1f;
-        
+           groundCheck_hero2.enabled = true;
+           groundCheck.enabled = false;
+
            /*hero1.SetActive(false);
            hero2.SetActive(true);
            */
@@ -297,7 +298,9 @@ public class PlayerMovement : MonoBehaviour
            p_level2 = false;
            myBox.radius = 0.5f;
            myBox2.radius = 0.5f;
-           
+           groundCheck.enabled = true;
+           groundCheck_hero2.enabled = false;
+
            /*hero2.SetActive(false);
            hero1.SetActive(true);*/
        }
