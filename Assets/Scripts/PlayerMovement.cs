@@ -23,7 +23,6 @@ public class PlayerMovement : MonoBehaviour
     /*public Sprite[] CookieLife;*/
     
     public CircleCollider2D myBox;
-    public CircleCollider2D myBox2;
     /*public GameObject hero1;
     public GameObject hero2;*/
     
@@ -48,7 +47,6 @@ public class PlayerMovement : MonoBehaviour
         myRB = GetComponent<Rigidbody2D>();
         myBox = GetComponent<CircleCollider2D>();
         mySR = GetComponentInChildren<SpriteRenderer>();
-        myBox2 = GetComponentInChildren<CircleCollider2D>();
         dashTime = startDashTime;   //Dash timer
         healthbar.SetMaxHealth(); //sets the max possible health in the HUD
         healthbar.SetHealth(currentHealth); //start the game with low health
@@ -59,7 +57,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log(myBox2.radius);
         evolutionCheck();
         var moveAxis = Vector2.right * moveDir;
         if (Mathf.Abs(myRB.velocity.x) < maxSpeed)
@@ -84,11 +81,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void updateHealth()
     {
-        currentHealth = currentHealth + 2;
+        currentHealth = currentHealth + 4;
     }
     public void updateHealth1()
     {
-        currentHealth = currentHealth - 2;
+        currentHealth = currentHealth - 3;
     }
     
     public void Move(InputAction.CallbackContext context)
@@ -281,9 +278,10 @@ public class PlayerMovement : MonoBehaviour
        if (currentHealth > 45)
        {
            p_level1 = false;
+           anim.Play("evolution-2");
            p_level2 = true;
            myBox.radius = 1.1f;
-           myBox2.radius = 1f;
+           
            groundCheck_hero2.enabled = true;
            groundCheck.enabled = false;
 
@@ -295,9 +293,10 @@ public class PlayerMovement : MonoBehaviour
        else if (currentHealth < 25)
        {
            p_level1 = true;
+           anim.Play("evolution-2");
            p_level2 = false;
            myBox.radius = 0.5f;
-           myBox2.radius = 0.5f;
+         
            groundCheck.enabled = true;
            groundCheck_hero2.enabled = false;
 

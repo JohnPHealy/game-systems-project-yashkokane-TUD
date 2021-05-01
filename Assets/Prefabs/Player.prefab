@@ -57,7 +57,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6312889739080900864}
   - component: {fileID: 6312889739080900865}
-  - component: {fileID: 302619912}
   - component: {fileID: 6312889739080900870}
   m_Layer: 0
   m_Name: Square
@@ -131,22 +130,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &302619912
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6312889739080900867}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.06}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!95 &6312889739080900870
 Animator:
   serializedVersion: 3
@@ -338,6 +321,7 @@ MonoBehaviour:
   maxSpeed: 20
   jumpForce: 20
   groundCheck: {fileID: 6312889739765433349}
+  groundCheck_hero2: {fileID: 0}
   groundLayers:
     serializedVersion: 2
     m_Bits: 64
@@ -348,8 +332,6 @@ MonoBehaviour:
   anim: {fileID: 6312889739080900870}
   myBox: {fileID: 6312889739516379399}
   myBox2: {fileID: 6312889739765433349}
-  hero1: {fileID: 6312889739765433348}
-  hero2: {fileID: 1728774541501223925}
   healthbar: {fileID: 0}
   dashSpeed: 25
   startDashTime: 0.6
