@@ -293,7 +293,7 @@ public class PlayerMovement : MonoBehaviour
        else if (currentHealth < 25)
        {
            p_level1 = true;
-           anim.Play("evolution-2");
+           //anim.Play("evolution-2");
            p_level2 = false;
            myBox.radius = 0.5f;
          

@@ -139,10 +139,10 @@ TextureImporter:
       name: Hero2_Dash_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1
-        width: 150
-        height: 233
+        x: 6
+        y: 7
+        width: 135
+        height: 226
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,10 +160,10 @@ TextureImporter:
       name: Hero2_Dash_1
       rect:
         serializedVersion: 2
-        x: 209
-        y: 1
-        width: 212
-        height: 207
+        x: 220
+        y: 7
+        width: 165
+        height: 219
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,10 +181,10 @@ TextureImporter:
       name: Hero2_Dash_2
       rect:
         serializedVersion: 2
-        x: 433
-        y: 0
-        width: 176
-        height: 240
+        x: 437
+        y: 7
+        width: 180
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

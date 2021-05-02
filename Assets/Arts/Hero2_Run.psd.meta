@@ -136,10 +136,10 @@ TextureImporter:
       name: Hero2_Run_0
       rect:
         serializedVersion: 2
-        x: 12
-        y: 6
-        width: 185
-        height: 229
+        x: 16
+        y: 7
+        width: 171
+        height: 227
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -157,10 +157,10 @@ TextureImporter:
       name: Hero2_Run_1
       rect:
         serializedVersion: 2
-        x: 225
-        y: 7
-        width: 177
-        height: 227
+        x: 229
+        y: 11
+        width: 171
+        height: 219
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

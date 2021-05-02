@@ -142,10 +142,10 @@ TextureImporter:
       name: Hero2_jump_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 6
-        width: 174
-        height: 227
+        x: 16
+        y: 7
+        width: 171
+        height: 228
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -163,10 +163,10 @@ TextureImporter:
       name: Hero2_jump_1
       rect:
         serializedVersion: 2
-        x: 181
-        y: 7
-        width: 187
-        height: 191
+        x: 226
+        y: 5
+        width: 171
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,10 +184,10 @@ TextureImporter:
       name: Hero2_jump_2
       rect:
         serializedVersion: 2
-        x: 416
-        y: 7
-        width: 184
-        height: 160
+        x: 440
+        y: 5
+        width: 171
+        height: 193
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -205,10 +205,10 @@ TextureImporter:
       name: Hero2_jump_3
       rect:
         serializedVersion: 2
-        x: 633
-        y: 6
-        width: 184
-        height: 192
+        x: 645
+        y: 5
+        width: 170
+        height: 193
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -10,7 +10,8 @@ public class MovingEnemy : MonoBehaviour
     //enemy stats
     private float moveSpeed = 3;
     public  int health = 4;
-    
+
+    public Animator anim;
     //enemy patrolling control variables
     public Transform currentPosition;
     public Transform[] points;
@@ -55,9 +56,9 @@ public class MovingEnemy : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "Player" || Dash.Dashing == true)
+        if (other.gameObject.tag == "Player" && Dash.Dashing == true)
         {
             Debug.Log(health);
             health = health - 1;
@@ -70,6 +71,19 @@ public class MovingEnemy : MonoBehaviour
             /*Debug.Log(("Dash"));*/
         }
     }
-
  
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            anim.Play("Enemy_attack");
+        }
+    }
+
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        anim.Play("Enemy_walk");
+    }
 }

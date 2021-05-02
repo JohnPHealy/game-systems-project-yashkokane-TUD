@@ -13,6 +13,7 @@ public class Dash_Ability : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Dash.canDash = true;
+            Destroy(gameObject);
             /*Debug.Log(("Dash"));*/
         }
     }

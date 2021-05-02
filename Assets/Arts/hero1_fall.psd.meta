@@ -142,10 +142,10 @@ TextureImporter:
       name: hero1_fall_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 26
-        width: 227
-        height: 159
+        x: 37
+        y: 38
+        width: 142
+        height: 126
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -163,10 +163,10 @@ TextureImporter:
       name: hero1_fall_1
       rect:
         serializedVersion: 2
-        x: 227
-        y: 26
-        width: 227
-        height: 159
+        x: 255
+        y: 36
+        width: 161
+        height: 88
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,10 +184,10 @@ TextureImporter:
       name: hero1_fall_2
       rect:
         serializedVersion: 2
-        x: 454
-        y: 26
-        width: 227
-        height: 159
+        x: 475
+        y: 36
+        width: 155
+        height: 67
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -205,10 +205,10 @@ TextureImporter:
       name: hero1_fall_3
       rect:
         serializedVersion: 2
-        x: 681
-        y: 26
-        width: 227
-        height: 159
+        x: 717
+        y: 36
+        width: 153
+        height: 116
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
