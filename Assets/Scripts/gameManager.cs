@@ -11,17 +11,7 @@ public class gameManager : MonoBehaviour
     public static int score;
     
     public TMP_Text scoretxt;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   
     public void RespawnPlayer()
         {
             player.transform.position = StartPos;
