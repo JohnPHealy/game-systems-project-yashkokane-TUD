@@ -6,7 +6,6 @@ using UnityEngine;
 public class movingPlatform : MonoBehaviour
 {
     public GameObject platform;
-    public GameObject Player;
 
     public float moveSpeed;
 
@@ -42,19 +41,19 @@ public class movingPlatform : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.CompareTag("Player"))
         {
-            Player.transform.parent = transform;
+            other.transform.parent = transform;
         }
     }
-
-    private void OnCollisionExit2D(Collision2D other)
+ 
+    private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.CompareTag("Player"))
         {
-            Player.transform.parent = null;
+            other.transform.parent = null;
         }
     }
 }

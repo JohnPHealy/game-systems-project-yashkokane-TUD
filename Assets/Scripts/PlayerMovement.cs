@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask groundLayers;
     [SerializeField] public bool canDash;
     [SerializeField] public bool Dashing = false;
+    public gameManager _GM;
     
     public  static float moveDir;
     private Rigidbody2D myRB;
@@ -87,7 +88,14 @@ public class PlayerMovement : MonoBehaviour
     {
         currentHealth = currentHealth - 3;
     }
-    
+
+    public void healthCheck()
+    {
+        if (currentHealth == 0)
+        {
+            _GM.GameOver();
+        }
+    }
     public void Move(InputAction.CallbackContext context)
     {
         moveDir = context.ReadValue<float>();
@@ -154,7 +162,6 @@ public class PlayerMovement : MonoBehaviour
                     {
                         anim.Play("Hero1_idle");
                     }
-
                     break;
                 }
                 case 2:
@@ -169,35 +176,16 @@ public class PlayerMovement : MonoBehaviour
                     {
                         anim.Play("Hero2_Idle");
                     }
-
                     break;
                     
                 }
             }
-            /*if (p_level1)
-            {
-                myRB.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
-                canJump = false;
-                anim.Play("Hero1_jump"); 
-            }
-            anim.Play("Hero1_idle");
-            if (p_level2)
-            {
-                myRB.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
-                canJump = false;
-                anim.Play("Hero2_jump");
-            }
-            anim.Play("Hero2_Idle");*/
         }
         
-
         if (context.canceled && myRB.velocity.y > 0)
         {
                 myRB.velocity = new Vector2(myRB.velocity.x, 0f);
-            
         }
-          
-        
     }
 
     public void Dash(InputAction.CallbackContext context)
@@ -258,6 +246,17 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            if (p_level1 == true)
+            {
+                anim.Play("Hero1_idle");
+            }
+            else if (p_level2 == true)
+            {
+                anim.Play("Hero2_Idle");
+            }
+        }
     }
    void Dashtimer()
    {
@@ -286,9 +285,6 @@ public class PlayerMovement : MonoBehaviour
            groundCheck_hero2.enabled = true;
            groundCheck.enabled = false;
 
-           /*hero1.SetActive(false);
-           hero2.SetActive(true);
-           */
 
        }
        else if (currentHealth < 25)
@@ -301,8 +297,6 @@ public class PlayerMovement : MonoBehaviour
            groundCheck.enabled = true;
            groundCheck_hero2.enabled = false;
 
-           /*hero2.SetActive(false);
-           hero1.SetActive(true);*/
        }
    }
 }

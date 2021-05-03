@@ -47,4 +47,13 @@ public class gameManager : MonoBehaviour
              UnityEditor.EditorApplication.isPlaying = false;
     #endif
          }
+         public void QuitGame()
+         {
+             SceneManager.LoadScene("Menu_Scene");
+         }
+
+         public void GameOver()
+         {
+             SceneManager.LoadScene("game_over");
+         }
 }
