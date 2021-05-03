@@ -8,6 +8,7 @@ TagManager:
   - Dash
   - Enemy
   - Breakable floor
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX

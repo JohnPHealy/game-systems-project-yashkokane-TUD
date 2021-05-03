@@ -81,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void updateHealth()
     {
-        currentHealth = currentHealth + 4;
+        currentHealth = currentHealth + 3;
     }
     public void updateHealth1()
     {
@@ -265,6 +265,7 @@ public class PlayerMovement : MonoBehaviour
        anim.SetBool("isDashing",false);
    }
 
+   
    private void OnCollisionEnter2D(Collision2D other)
    {
        if (other.gameObject.tag == "Enemy")
@@ -275,10 +276,10 @@ public class PlayerMovement : MonoBehaviour
 
    public void evolutionCheck()
    {
-       if (currentHealth > 45)
+       if (currentHealth > 50)
        {
-           p_level1 = false;
-           anim.Play("evolution-2");
+           p_level1 = false;/*
+           anim.Play("evolution-2");*/
            p_level2 = true;
            myBox.radius = 1.1f;
            

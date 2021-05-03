@@ -10,6 +10,8 @@ public class Dash_Ability : MonoBehaviour
     public PlayerMovement Dash;
     public TMP_Text name;
     public TMP_Text introText;
+    public TMP_Text combatText;
+    public TMP_Text dashText;
     public GameObject Dialogue;
 
 
@@ -21,6 +23,9 @@ public class Dash_Ability : MonoBehaviour
             Destroy(gameObject);
             /*Debug.Log(("Dash"));*/
             name.enabled = true;
+            dashText.enabled = true;
+            
+            combatText.enabled = false;
             introText.enabled = true;
         }
     }
@@ -31,7 +36,7 @@ public class Dash_Ability : MonoBehaviour
                     if (other.gameObject.tag == "Player")
                     {
                         name.enabled = false;
-                        introText.enabled = false;
+                        dashText.enabled = false;
                         Dialogue.SetActive(false);
                         
                     }

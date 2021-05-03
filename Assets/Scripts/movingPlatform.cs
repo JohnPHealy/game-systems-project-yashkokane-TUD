@@ -6,6 +6,7 @@ using UnityEngine;
 public class movingPlatform : MonoBehaviour
 {
     public GameObject platform;
+    public GameObject Player;
 
     public float moveSpeed;
 
@@ -45,8 +46,7 @@ public class movingPlatform : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            other.gameObject.layer = 10;
-            other.transform.SetParent(childTranform);
+            Player.transform.parent = transform;
         }
     }
 
@@ -54,7 +54,7 @@ public class movingPlatform : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            other.transform.SetParent(null);
+            Player.transform.parent = null;
         }
     }
 }
