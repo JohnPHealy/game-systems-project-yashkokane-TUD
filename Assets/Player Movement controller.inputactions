@@ -52,6 +52,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Hold"
+                },
+                {
+                    "name": "Super Jump",
+                    "type": "PassThrough",
+                    "id": "97abdd95-d152-4bc3-bd01-681f6a0dea8d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold(duration=2.1,pressPoint=7)"
                 }
             ],
             "bindings": [
@@ -140,6 +148,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "interaction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1feef8a4-8a38-4810-bb84-082870cab2fa",
+                    "path": "<Keyboard>/x",
+                    "interactions": "Hold(duration=2.2,pressPoint=0.7)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Super Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -52,8 +52,5 @@ public class gameManager : MonoBehaviour
              SceneManager.LoadScene("Menu_Scene");
          }
 
-         public void GameOver()
-         {
-             SceneManager.LoadScene("game_over");
-         }
+         
 }

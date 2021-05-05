@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class MovingEnemy : MonoBehaviour
 {
     public GameObject _enemy;
+    public GameObject _SJAbility;
     
     //enemy stats
     private float moveSpeed = 3;
@@ -25,6 +27,11 @@ public class MovingEnemy : MonoBehaviour
     //player movement script Dash ability call
     
     public GameObject roof ;
+    
+    //camera objects
+    public CinemachineVirtualCamera MainCam;
+
+    public CinemachineVirtualCamera Cutscene;
     // Start is called before the first frame update
     void Start()
     {
@@ -65,25 +72,39 @@ public class MovingEnemy : MonoBehaviour
     
             if (health == 0)
             {
-                Destroy(gameObject); //destroy enemy object
-                Destroy(roof);//destroy the roof object in the map
+                playCutScene();//destroy enemy object
+                Destroy(roof);
+                _SJAbility.SetActive(true);
+                
+                //destroy the roof object in the map
             }
             /*Debug.Log(("Dash"));*/
         }
+        
     }
- 
-
-    private void OnTriggerEnter2D(Collider2D other)
+    public void playCutScene()
     {
-        if (other.gameObject.tag == "Player")
-        {
-            anim.Play("Enemy_attack");
-        }
+        Cutscene.enabled = true;
+        
+        MainCam.enabled = false;
+        anim.Play("buff view");
+        StartCoroutine(endCutScene());
     }
-
-
-    private void OnTriggerExit2D(Collider2D other)
+    IEnumerator endCutScene()
     {
-        anim.Play("Enemy_walk");
+        yield return new WaitForSeconds(6f);
+        Debug.Log("end cut");
+        MainCam.enabled = true;
+        Cutscene.enabled = false;
+        Destroy(gameObject); 
+        
+
     }
+
+   
+
+
+
+
+
 }

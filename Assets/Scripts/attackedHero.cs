@@ -24,7 +24,18 @@ public class attackedHero : MonoBehaviour
         {
             anim.Play("Enemy_attack");
             health.updateHealth1();
+            StartCoroutine(attackHalt());
+            
             /*Destroy(gameObject);*/
         }
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        anim.Play("Enemy_walk");
+    }
+
+    IEnumerator attackHalt()
+    {
+        yield return new WaitForSeconds(3f);
     }
 }
