@@ -31,6 +31,7 @@ public class gameManager : MonoBehaviour
          public void RestartGame()
          {
              SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+             PlayerMovement.PlayerHealth = 12;
          }
          
          public void Quit()

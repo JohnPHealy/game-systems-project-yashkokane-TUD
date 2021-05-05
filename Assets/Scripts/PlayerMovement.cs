@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject hero2;*/
     
     //Health controls
-    public static int PlayerHealth = 12 ;
+    public static int PlayerHealth = 12;
     public HealthBar healthbar;
     
     //player evolution
@@ -87,8 +87,15 @@ public class PlayerMovement : MonoBehaviour
             previousDirection = myRB.velocity.x;
         }
         healthbar.SetHealth(PlayerHealth); //passes health to the health bar script
-        healtCheck(); 
+        healthCheck(); 
         
+    }
+    public void healthCheck()
+    {
+        if (PlayerHealth == 0)
+        {
+            SceneManager.LoadScene("game_over");
+        }
     }
 
     public void updateHealth()
@@ -98,18 +105,11 @@ public class PlayerMovement : MonoBehaviour
     }
     public void updateHealth1()
     {
-        PlayerHealth = PlayerHealth - 3;
+        PlayerHealth = PlayerHealth - 2;
         
     }
 
-    public void healtCheck()
-    {
-        if (PlayerHealth == 0)
-        {
-            /*Debug.Log("health zero");*/
-            SceneManager.LoadScene("game_over");
-        }
-    }
+
 
     public void Move(InputAction.CallbackContext context)
     {
@@ -278,60 +278,53 @@ public class PlayerMovement : MonoBehaviour
        Dashing = false;
        anim.SetBool("isDashing",false);
    }
-
-   IEnumerator  jumphalt()
-   {
-       yield return new WaitForSeconds(1.2f); 
-       if (p_level1)
-       {
-           p = 1;
-       }
-       else if (p_level2)
-       {
-           p = 2;
-       }
-       switch (p)
-       {
-           case 1:
-           {
-               if (canJump)
-               {
-                   myRB.AddForce(transform.up * jumpForce * chargeUp , ForceMode2D.Impulse );
-                   canJump = false;
-                   anim.Play("Hero1_jump");
-                   chargeUp = 0f;
-               }
-               else
-               {
-                   anim.Play("Hero1_idle");
-               }
-               break;
-           }
-           case 2:
-           {
-               if (canJump)
-               {
-                   myRB.AddForce(transform.up * jumpForce*chargeUp, ForceMode2D.Impulse);
-                   canJump = false;
-                   anim.Play("Hero2_jump");   
-               }
-               else
-               {
-                   anim.Play("Hero2_Idle");
-               }
-               break;
-                    
-           }
-       }
-       /*
-       anim.SetBool("isDashing",false);*/
-   }
+   
    public void SuperJump(InputAction.CallbackContext context)
    {
        if (context.started && canSJ )
        {
            chargeUp = jumpForce * 0.08f;
-           StartCoroutine(jumphalt());
+           if (p_level1)
+           {
+               p = 1;
+           }
+           else if (p_level2)
+           {
+               p = 2;
+           }
+           switch (p)
+           {
+               case 1:
+               {
+                   if (canJump)
+                   {
+                       myRB.AddForce(transform.up * jumpForce * chargeUp , ForceMode2D.Impulse );
+                       canJump = false;
+                       anim.Play("Hero1_jump");
+                       chargeUp = 0f;
+                   }
+                   else
+                   {
+                       anim.Play("Hero1_idle");
+                   }
+                   break;
+               }
+               case 2:
+               {
+                   if (canJump)
+                   {
+                       myRB.AddForce(transform.up * jumpForce * chargeUp, ForceMode2D.Impulse);
+                       canJump = false;
+                       anim.Play("Hero2_jump");   
+                   }
+                   else
+                   {
+                       anim.Play("Hero2_Idle");
+                   }
+                   break;
+                    
+               }
+           }
            Debug.Log(chargeUp);
            
        }

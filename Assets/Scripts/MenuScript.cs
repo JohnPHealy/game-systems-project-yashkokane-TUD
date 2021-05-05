@@ -12,6 +12,11 @@ public class MenuScript : MonoBehaviour
         SceneManager.LoadScene("level-1");
     }
 
+    public void RestartGame()
+    {
+        PlayerMovement.PlayerHealth = 12;
+        SceneManager.LoadScene("level-1");  
+    }
     public void Quit()
     {
         SceneManager.LoadScene("Menu_Scene");
