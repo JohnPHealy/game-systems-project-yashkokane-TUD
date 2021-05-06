@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject hero2;*/
     
     //Health controls
-    public static int PlayerHealth = 12;
+    public static int PlayerHealth = 15;
     public HealthBar healthbar;
     
     //player evolution
@@ -100,7 +100,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void updateHealth()
     {
-        PlayerHealth = PlayerHealth + 1;
+        PlayerHealth = PlayerHealth + 2;
        
     }
     public void updateHealth1()

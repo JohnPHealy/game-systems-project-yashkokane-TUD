@@ -75,10 +75,7 @@ public class MovingEnemy : MonoBehaviour
                 playCutScene();//destroy enemy object
                 Destroy(roof);
                 _SJAbility.SetActive(true);
-                
-                //destroy the roof object in the map
             }
-            /*Debug.Log(("Dash"));*/
         }
         
     }
@@ -87,13 +84,13 @@ public class MovingEnemy : MonoBehaviour
         Cutscene.enabled = true;
         
         MainCam.enabled = false;
-        anim.Play("buff view");
+        /*anim.Play("buff view");*/
         StartCoroutine(endCutScene());
     }
     IEnumerator endCutScene()
     {
         yield return new WaitForSeconds(6f);
-        Debug.Log("end cut");
+        /*Debug.Log("end cut");*/
         MainCam.enabled = true;
         Cutscene.enabled = false;
         Destroy(gameObject); 

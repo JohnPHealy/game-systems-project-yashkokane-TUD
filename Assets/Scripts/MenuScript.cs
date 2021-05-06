@@ -14,7 +14,7 @@ public class MenuScript : MonoBehaviour
 
     public void RestartGame()
     {
-        PlayerMovement.PlayerHealth = 12;
+        PlayerMovement.PlayerHealth = 15;
         SceneManager.LoadScene("level-1");  
     }
     public void Quit()

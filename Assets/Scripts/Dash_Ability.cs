@@ -15,6 +15,7 @@ public class Dash_Ability : MonoBehaviour
         {
             Dash.canDash = true;
             Destroy(gameObject);
+            
             /*Debug.Log(("Dash"));*/
        
         }
